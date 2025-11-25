@@ -1,0 +1,13 @@
+.bg-dark {
+  background-color: #000 !important;
+}
+
+.form-control {
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+}
+
+.form-control::placeholder {
+  color: #bbb;
+}

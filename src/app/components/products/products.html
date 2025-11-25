@@ -1,0 +1,98 @@
+<div class="container py-4 product-page">
+
+  <h2 class="text-center mb-4 fw-bold text-white">Product Manager</h2>
+
+  <div class="card product-card shadow-lg p-4">
+
+    <div class="row g-4">
+
+      <!-- Left Form -->
+      <!-- Left Form -->
+<div class="col-md-4">
+  <h5 class="mb-3 fw-bold text-primary">{{ editingId ? 'Edit Product' : 'Add New Product' }}</h5>
+
+  <!-- Name -->
+  <input class="form-control mb-1 shadow-sm"
+         [ngClass]="{'is-invalid': submitted && !model.name}"
+         placeholder="Product Name"
+         [(ngModel)]="model.name" name="name">
+
+  <div class="invalid-feedback mb-2" *ngIf="submitted && !model.name">
+    Product name is required.
+  </div>
+
+  <!-- Price -->
+  <input class="form-control mb-1 shadow-sm"
+         [ngClass]="{'is-invalid': submitted && !model.price}"
+         placeholder="Price" type="number"
+         [(ngModel)]="model.price" name="price">
+
+  <div class="invalid-feedback mb-2" *ngIf="submitted && !model.price">
+    Price is required.
+  </div>
+
+  <!-- Description -->
+  <textarea class="form-control mb-1 shadow-sm"
+            [ngClass]="{'is-invalid': submitted && !model.description}"
+            placeholder="Description" rows="3"
+            [(ngModel)]="model.description" name="description"></textarea>
+
+  <div class="invalid-feedback mb-2" *ngIf="submitted && !model.description">
+    Description is required.
+  </div>
+
+  <!-- Buttons -->
+  <div class="d-flex mt-2">
+    <button class="btn btn-success px-4"
+            (click)="save()"
+            [disabled]="!model.name || !model.price || !model.description">
+      {{ editingId ? 'Update' : 'Create' }}
+    </button>
+
+    <button class="btn btn-secondary ms-2 px-4" (click)="reset()">Reset</button>
+  </div>
+
+</div>
+
+
+      <!-- Right Table -->
+      <div class="col-md-8">
+        <div *ngIf="loading" class="alert alert-info">Loading...</div>
+        <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+        <table class="table table-hover table-bordered shadow-sm align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Description</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let p of products">
+              <td>{{ p.name }}</td>
+              <td>₹ {{ p.price }}</td>
+              <td class="text-muted">{{ p.description }}</td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-primary me-1" (click)="edit(p)">
+                  Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="remove(p)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p *ngIf="!products || products.length === 0" 
+           class="text-center text-muted mt-3">
+          No products found.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

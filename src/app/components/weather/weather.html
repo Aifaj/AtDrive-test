@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center mt-4">
+  <div class="weather-card card p-4 shadow-lg rounded-4" style="max-width: 450px; width: 100%;">
+
+    <h3 class="text-center mb-3 fw-bold">
+      🌤️ Weather Checker
+    </h3>
+
+    <button class="btn btn-primary w-100 mb-3 rounded-pill" (click)="getWeather()">
+      Get My Weather
+    </button>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="alert alert-info text-center rounded-3">
+      ⏳ Getting your location...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="alert alert-danger text-center rounded-3">
+      ❌ {{ error }}
+    </div>
+
+    <!-- Weather Info -->
+    <div *ngIf="weather" class="text-center mt-3">
+
+      <div class="display-3 mb-2">
+        🌡️ {{ weather.temperature }}°C
+      </div>
+
+      <div class="fs-5 mb-1">
+        💨 Wind: {{ weather.windspeed }} km/h
+      </div>
+
+      <div class="fs-6 text-muted">
+        Code: {{ weather.weathercode }}
+      </div>
+
+      <hr />
+
+      <p class="text-muted small">
+        📍 Location detected using GPS
+      </p>
+
+    </div>
+  </div>
+</div>

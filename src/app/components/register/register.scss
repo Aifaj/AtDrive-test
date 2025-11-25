@@ -1,0 +1,38 @@
+.auth-bg {
+  height: 100vh;
+  background: #000; /* Full black background */
+}
+
+.auth-box {
+  width: 360px;
+  background: #1b1b1b;               /* Dark box */
+  border: 2px solid #4a4a4a;          /* Border */
+  border-radius: 12px;
+  backdrop-filter: blur(4px);         /* Glass effect */
+}
+
+.auth-box input {
+  background: #2b2b2b;
+  border: 1px solid #555;
+  color: white;
+}
+
+.auth-box input::placeholder {
+  color: #bbb;
+}
+
+.auth-box .btn-primary {
+  background: linear-gradient(45deg, #007bff, #6610f2);
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.auth-box .btn-primary:hover {
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
+a {
+  text-decoration: none;
+}

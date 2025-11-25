@@ -1,0 +1,149 @@
+<div class="container py-4 order-page">
+
+  <div class="d-flex justify-content-between mt-4 mb-4">
+    <h2 class="fw-bold ">Order Management</h2>
+    <button class="btn btn-warning fw-bold"
+      data-bs-toggle="modal"
+      data-bs-target="#cartModal">
+      View Cart ({{ cart.length }})
+    </button>
+  </div>
+
+  
+  <!-- PRODUCT GRID -->
+  <div class="row g-4">
+    <div class="col-6 col-md-3 col-lg-2" *ngFor="let p of products">
+      <div class="card product-card shadow-sm text-center p-2">
+        <div class="card-body">
+
+          <h6 class="fw-bold">{{ p.name }}</h6>
+          <p class="text-muted small m-0">₹ {{ p.price }}</p>
+
+          <button *ngIf="!isInCart(p._id)"
+            class="btn btn-primary btn-sm w-100 mt-2"
+            (click)="addToCart(p)">
+            Add to Cart
+          </button>
+
+          <button *ngIf="isInCart(p._id)"
+            class="btn btn-danger btn-sm w-100 mt-2"
+            (click)="removeFromCart(p._id)">
+            Remove
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+
+  <!-- CART MODAL -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">Your Cart</h5>
+          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <table *ngIf="cart.length > 0" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let c of cart; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ c.name }}</td>
+                <td>₹ {{ c.price }}</td>
+                <td class="text-center">
+                  <button class="btn btn-danger btn-sm" (click)="removeFromCart(c._id)">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p *ngIf="cart.length === 0" class="text-center text-muted">
+            Cart is empty.
+          </p>
+
+        </div>
+
+        <div class="modal-footer">
+          <h5 class="me-auto m-0" *ngIf="cart.length > 0">
+            Total: ₹ {{ totalAmount() }}
+          </h5>
+
+          <button class="btn btn-success"
+        *ngIf="cart.length > 0"
+        (click)="placeOrder()"
+        data-bs-dismiss="modal">
+
+  {{ isUpdateMode ? 'Update Order' : 'Place Order' }}
+
+</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Orders List -->
+ <div class="card shadow-lg p-4 order-card mt-4" *ngIf="orders.length > 0">
+  <h5 class="fw-bold text-primary mb-3">Orders List</h5>
+
+  <!-- ⭐ Make Table Responsive -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle shadow-sm bg-white">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Products</th>
+          <th>Total</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let o of orders; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ o.userId }}</td>
+          <td>{{ o.productIds.join(', ') }}</td>
+          <td>₹ {{ o.totalAmount }}</td>
+
+          <td class="text-center">
+            <button
+              class="btn btn-primary btn-sm me-2"
+              (click)="openUpdate(o)"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal">
+              Update
+            </button>
+
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteOrder(o._id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+
+</div>
