@@ -19,7 +19,7 @@ export class Login {
   login() {
     this.auth.login(this.model).subscribe({
       next: (res: any) => {
-        
+         this.auth.saveToken(res.token);
         this.router.navigate(['/products']);
       },
       error: (err: { error: { message: any; }; }) => {

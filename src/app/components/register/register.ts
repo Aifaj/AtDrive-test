@@ -13,14 +13,16 @@ import { CommonModule } from '@angular/common';
 })
 export class Register {
   model: any = {
-    username: '',
-    password: ''
+    name: '',
+    email: '',
+    password: '',
+    role:'user'
   };
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register() {
-    this.http.post('http://localhost:5000/api/users/register', this.model)
+    this.http.post('http://localhost:5000/api/auth/register', this.model)
       .subscribe({
         next: (res: any) => {
           alert('Registration successful');

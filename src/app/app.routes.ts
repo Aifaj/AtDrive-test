@@ -4,10 +4,11 @@ import { Login } from './components/login/login';
 import { Register } from './components/register/register';
 import { Orders } from './components/orders/orders';
 import { Weather } from './components/weather/weather';
+import { AuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
 
-  { path: 'products', component: Products },
+  { path: 'products', component: Products, canActivate: [AuthGuard] },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'orders', component: Orders },

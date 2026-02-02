@@ -7,28 +7,33 @@ import { environment } from '../../environments/environments';
   providedIn: 'root'
 })
 export class Auth {
- private base = `${environment.apiBase}/users`;
+ 
+   private api = "http://localhost:5000/auth";
 
   constructor(private http: HttpClient) {}
 
-  login(payload: any): Observable<any> {
-    return this.http.post(`${this.base}/login`, payload).pipe(
-      tap((res: any) => {
-        // Save in session storage
-        sessionStorage.setItem('token', res.token);
-        sessionStorage.setItem('userId', res.userId);
-      })
-    );
+  login(data: any) {
+    return this.http.post(`${this.api}/login`, data);
+  }
+
+  register(data: any) {
+    return this.http.post(`${this.api}/register`, data);
+  }
+
+  saveToken(token: string) {
+    localStorage.setItem("token", token);
+  }
+
+  getToken() {
+    return localStorage.getItem("token");
   }
 
   logout() {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('userId');
-    localStorage.removeItem('cart');
+    localStorage.removeItem("token");
   }
 
-  isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('token');
+  isLoggedIn() {
+    return !!localStorage.getItem("token");
   }
 
 }

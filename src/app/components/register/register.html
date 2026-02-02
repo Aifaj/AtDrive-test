@@ -2,8 +2,11 @@
   <div class="auth-box p-4 rounded shadow-lg">
     <h3 class="text-center mb-4 text-white">Register</h3>
 
-    <input class="form-control mb-3" placeholder="Username"
-      [(ngModel)]="model.username" name="username">
+    <input class="form-control mb-3" placeholder="Name"
+      [(ngModel)]="model.name" name="name">
+
+    <input class="form-control mb-3" placeholder="Email" type="email"
+      [(ngModel)]="model.email" name="email">
 
     <input class="form-control mb-3" placeholder="Password" type="password"
       [(ngModel)]="model.password" name="password">

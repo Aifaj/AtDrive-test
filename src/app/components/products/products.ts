@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../../services/product';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../services/user';
 
 @Component({
   selector: 'app-products',
@@ -19,9 +20,20 @@ export class Products {
   loading = false;
   error: string | null = null;
 
-  constructor(private productService: Product) {}
+  constructor(private productService: Product, private userService: User) {}
 
-  ngOnInit(): void { this.load(); }
+  ngOnInit(): void { this.load(); 
+    this.getAllUser();
+  }
+
+  getAllUser(): void {
+    this.userService.getAllUser('/users/getAllUser').subscribe({
+      next: (res: any) => {
+        this.products = res.data ?? res;
+      },
+      error: (err: { message: string; }) => { this.error = err.message || 'Failed to load'; }
+    });
+  }
 
   load(): void {
     this.loading = true;
